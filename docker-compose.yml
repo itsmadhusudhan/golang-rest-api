@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    container_name: "database"
+    hostname: "postgres-docker"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - rest-api
+    volumes:
+    - database_postgres:/var/lib/postgressql/data
+#  app:
+#    build: .
+#    container_name: rest-api-app
+#    depends_on:
+#      - db
+#    ports:
+#      - 3000:3000
+#    networks:
+#      - rest-api
+volumes:
+  database_postgres:
+networks:
+  rest-api:
+    name: rest-api
+    driver: bridge
